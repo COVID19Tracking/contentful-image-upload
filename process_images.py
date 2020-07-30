@@ -13,6 +13,7 @@ import zipfile
 
 FILE_PATH = "input doc.docx"
 DIR_PATH = "imgs"
+CONTENTFUL_SPACE_ID = 'o2ll9t4ee8tq'
 
 with open('config.json') as json_file:
     config = json.load(json_file)
@@ -49,4 +50,4 @@ if __name__ == '__main__':
     extract_images_from_word(FILE_PATH)
     # todo check is png / convert to png
     optimize_images()
-    contentful_upload.upload(DIR_PATH)
+    contentful_upload.upload(DIR_PATH, CONTENTFUL_SPACE_ID)

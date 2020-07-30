@@ -60,13 +60,11 @@ def __get_client():
     return Client(config['contentful-access-token'])
 
 
-def upload(directory_path):
+def upload(directory_path, space_id):
     """
     Uploads the images in directory_path to Contentful
     """
-    website_content_space_id = 'o2ll9t4ee8tq'
-
-    space = __get_client().spaces().find(website_content_space_id)
+    space = __get_client().spaces().find(space_id)
 
     environment = space.environments().find('image-optimization')
 

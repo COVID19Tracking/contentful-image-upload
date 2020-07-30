@@ -121,8 +121,9 @@ def upload_images_to_contentful():
         image_content_block.publish()
 
 
-clear_directory()
-extract_images_from_word(FILE_PATH)
-# todo check is png / convert to png
-optimize_images()
-upload_images_to_contentful()
+if __name__ == '__main__':
+    clear_directory()
+    extract_images_from_word(FILE_PATH)
+    # todo check is png / convert to png
+    optimize_images()
+    upload_images_to_contentful()

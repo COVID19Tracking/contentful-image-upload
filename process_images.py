@@ -23,18 +23,27 @@ tinify.key = config['tinify-api-key']
 
 
 def get_files():
+    """
+    Gets the files in the images directory, specified by DIR_PATH
+    """
     return [f for f in listdir(DIR_PATH) if isfile(join(DIR_PATH, f))]
 
 
 def clear_directory():
+    """
+    Clears the DIR_PATH directory, ensures that a directory exists at DIR_PATH
+    """
     try:
         shutil.rmtree(DIR_PATH)
     except FileNotFoundError as e:
-        pass  # directory doesn't exist, probably first run
+        pass  # directory doesn't exist, probably the first run
     os.makedirs(DIR_PATH)
 
 
 def extract_images_from_word(docxpath):
+    """
+    Pulls the images from a word document into DIR_PATH
+    """
     doc = zipfile.ZipFile(docxpath)
     for info in doc.infolist():
         if info.filename.endswith((".png", ".jpeg", ".gif")):
@@ -46,6 +55,9 @@ def extract_images_from_word(docxpath):
 
 
 def optimize_images():
+    """
+    Optimizes the images in DIR_PATH via tinify
+    """
     for file in get_files():
         tinify.from_file(join(DIR_PATH, file)).to_file(
             join(DIR_PATH, 'optimized_' + file))
@@ -53,6 +65,9 @@ def optimize_images():
 
 
 def _create_asset(environment, title, file, uploadFrom):
+    """
+    Creates a Contentful asset
+    """
     return environment.assets().create(
         None,  # no set id
         {
@@ -72,10 +87,16 @@ def _create_asset(environment, title, file, uploadFrom):
 
 
 def _get_title(index):
+    """
+    Gets the asset/entry title for Contentful
+    """
     return 'Auto-uploaded image (' + str(index + 1) + ')'
 
 
 def upload_images_to_contentful():
+    """
+    Uploads the images in DIR_PATH to Contentful
+    """
     website_content_space_id = 'o2ll9t4ee8tq'
     space = client.spaces().find(website_content_space_id)
     environment = space.environments().find('image-optimization')

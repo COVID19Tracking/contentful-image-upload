@@ -49,8 +49,8 @@ def extract_images_from_word(docxpath):
         if info.filename.endswith((".png", ".jpeg", ".gif")):
             doc.extract(info.filename, DIR_PATH)
             shutil.copy(
-                DIR_PATH + "\\" + info.filename,
-                DIR_PATH + "\\" + 'contentful_' + info.filename.split("/")[-1])
+                join(DIR_PATH, info.filename),
+                join(DIR_PATH, 'contentful_' + info.filename.split("/")[-1]))
     doc.close()
 
 
@@ -125,5 +125,4 @@ clear_directory()
 extract_images_from_word(FILE_PATH)
 # todo check is png / convert to png
 optimize_images()
-
 upload_images_to_contentful()

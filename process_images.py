@@ -85,6 +85,24 @@ def __create_asset(environment, title, file, uploadFrom):
         })
 
 
+def __create_image_content_block(environment, title, asset_link):
+    """
+    Creates a Contentful Image Content Block (a type of Entry)
+    """
+    return environment.entries().create(
+        None, {
+            'content_type_id': 'contentBlockImage',
+            'fields': {
+                'nameInternal': {
+                    'en-US': title
+                },
+                'image': {
+                    'en-US': asset_link
+                }
+            }
+        })
+
+
 def __get_title(index):
     """
     Gets the asset/entry title for Contentful
@@ -103,21 +121,12 @@ def upload_images_to_contentful():
     for index, file in enumerate(get_files()):
         upload = space.uploads().create(join(DIR_PATH, file))
         asset = __create_asset(environment, __get_title(index), file,
-                              upload.to_link().to_json())
+                               upload.to_link().to_json())
         asset.process()
         asset.publish()
-        image_content_block = environment.entries().create(
-            None, {
-                'content_type_id': 'contentBlockImage',
-                'fields': {
-                    'nameInternal': {
-                        'en-US': __get_title(index)
-                    },
-                    'image': {
-                        'en-US': asset.to_link().to_json()
-                    }
-                }
-            })
+        image_content_block = __create_image_content_block(
+            environment, __get_title(index),
+            asset.to_link().to_json())
         image_content_block.publish()
 
 

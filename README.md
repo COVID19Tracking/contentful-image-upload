@@ -15,7 +15,7 @@ These credentials live in `config.json`, which should be structured like:
 
 ```
 
-Run the script with `python process_images.py`
+Run the script with `python process_images.py my-word-document.docx`
 
 ## Development
 

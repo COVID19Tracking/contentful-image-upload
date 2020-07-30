@@ -1,5 +1,7 @@
-from os import listdir
-from os.path import isfile, join
+import sys
+from os import listdir, makedirs
+import shutil
+from os.path import isfile, join, isfile
 
 
 def get_files(directory_path):
@@ -19,4 +21,16 @@ def clear_directory(directory_path):
         shutil.rmtree(directory_path)
     except FileNotFoundError as e:
         pass  # directory doesn't exist, probably the first run
-    os.makedirs(directory_path)
+    makedirs(directory_path)
+
+
+def get_file_path(directory_path):
+    try:
+        file_path = sys.argv[1]
+    except IndexError as e:
+        print('You need to pass a docx file as an argument...quitting.')
+        quit(1)
+    if not isfile(file_path):
+        print('"' + file_path + "\" doesn't seem to exist...quitting")
+        quit(1)
+    return file_path

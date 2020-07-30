@@ -64,12 +64,13 @@ def upload(directory_path, space_id):
     """
     Uploads the images in directory_path to Contentful
     """
-    space = __get_client().spaces().find(space_id) # get the proper space
+    space = __get_client().spaces().find(space_id)  # get the proper space
 
     environment = space.environments().find('image-optimization')
 
     for index, file in enumerate(utils.get_files(directory_path)):
-        upload = space.uploads().create(join(directory_path, file)) # upload the image
+        upload = space.uploads().create(join(directory_path,
+                                             file))  # upload the image
 
         # create the asset, linked to the upload
         asset = __create_asset(environment, __get_title(index), file,

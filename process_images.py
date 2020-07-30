@@ -8,10 +8,9 @@ import tinify
 import json
 import zipfile
 
-# todo pass document as CLI argument
 # todo add logging
+# todo add dir path, contentful space id to config
 
-FILE_PATH = "input doc.docx"
 DIR_PATH = "imgs"
 CONTENTFUL_SPACE_ID = 'o2ll9t4ee8tq'
 
@@ -46,8 +45,9 @@ def optimize_images():
 
 
 if __name__ == '__main__':
+    file_path = utils.get_file_path(DIR_PATH)
     utils.clear_directory(DIR_PATH)
-    extract_images_from_word(FILE_PATH)
+    extract_images_from_word(file_path)
     # todo check is png / convert to png
     optimize_images()
     contentful_upload.upload(DIR_PATH, CONTENTFUL_SPACE_ID)

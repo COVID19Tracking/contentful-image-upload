@@ -2,6 +2,7 @@ import sys
 from os import listdir, makedirs
 import shutil
 from os.path import isfile, join, isfile
+import logging
 
 
 def get_files(directory_path):
@@ -17,6 +18,7 @@ def clear_directory(directory_path):
     """
     Clears the directory_path directory, ensures that a directory exists at directory_path
     """
+    logging.info('Clearing directory')
     try:
         shutil.rmtree(directory_path)
     except FileNotFoundError as e:
@@ -25,6 +27,10 @@ def clear_directory(directory_path):
 
 
 def get_file_path(directory_path):
+    """
+    Gets the file path from the CLI arguments
+    """
+    logging.info('Getting file path')
     try:
         file_path = sys.argv[1]
     except IndexError as e:

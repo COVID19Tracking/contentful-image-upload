@@ -3,12 +3,14 @@ from contentful_management import Client
 import utils
 from os.path import join
 import datetime
+import logging
 
 
 def __create_asset(environment, title, file, uploadFrom):
     """
     Creates a Contentful asset
     """
+    logging.info('Creating asset: ' + title)
     return environment.assets().create(
         None,  # no set id
         {
@@ -31,6 +33,7 @@ def __create_image_content_block(environment, title, asset_link):
     """
     Creates a Contentful Image Content Block (a type of Entry)
     """
+    logging.info('Creating image content block: ' + title)
     return environment.entries().create(
         None, {
             'content_type_id': 'contentBlockImage',

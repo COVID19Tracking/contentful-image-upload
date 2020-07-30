@@ -63,7 +63,7 @@ def optimize_images():
         os.remove(join(DIR_PATH, file))
 
 
-def _create_asset(environment, title, file, uploadFrom):
+def __create_asset(environment, title, file, uploadFrom):
     """
     Creates a Contentful asset
     """
@@ -85,7 +85,7 @@ def _create_asset(environment, title, file, uploadFrom):
         })
 
 
-def _get_title(index):
+def __get_title(index):
     """
     Gets the asset/entry title for Contentful
     """
@@ -102,7 +102,7 @@ def upload_images_to_contentful():
     environment = space.environments().find('image-optimization')
     for index, file in enumerate(get_files()):
         upload = space.uploads().create(join(DIR_PATH, file))
-        asset = _create_asset(environment, _get_title(index), file,
+        asset = __create_asset(environment, __get_title(index), file,
                               upload.to_link().to_json())
         asset.process()
         asset.publish()
@@ -111,7 +111,7 @@ def upload_images_to_contentful():
                 'content_type_id': 'contentBlockImage',
                 'fields': {
                     'nameInternal': {
-                        'en-US': _get_title(index)
+                        'en-US': __get_title(index)
                     },
                     'image': {
                         'en-US': asset.to_link().to_json()

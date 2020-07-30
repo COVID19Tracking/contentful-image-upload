@@ -5,9 +5,11 @@ import os
 import shutil
 import tinify
 import json
+import datetime
 import zipfile
 
 # todo pass document as CLI argument
+# todo add logging
 
 FILE_PATH = "input doc.docx"
 DIR_PATH = "imgs"
@@ -87,7 +89,8 @@ def _get_title(index):
     """
     Gets the asset/entry title for Contentful
     """
-    return 'Auto-uploaded image (' + str(index + 1) + ')'
+    return 'Auto-uploaded image (' + str(index + 1) + ') at ' + str(
+        datetime.datetime.now().replace(microsecond=0))
 
 
 def upload_images_to_contentful():

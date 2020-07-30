@@ -6,9 +6,6 @@ import shutil
 import tinify
 import json
 import zipfile
-"""
-pip install tinify contentful_management
-"""
 
 # todo pass document as CLI argument
 

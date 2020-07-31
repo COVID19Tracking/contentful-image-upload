@@ -51,7 +51,8 @@ def optimize_images():
 
 logging.basicConfig(level=logging.INFO)
 
-if __name__ == '__main__':
+
+def main():
     file_path = utils.get_file_path()
 
     utils.clear_directory()
@@ -61,3 +62,7 @@ if __name__ == '__main__':
     optimize_images()
 
     contentful_upload.upload()
+
+
+if __name__ == '__main__':
+    main()

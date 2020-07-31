@@ -8,7 +8,6 @@ from werkzeug.utils import secure_filename
 import os
 
 UPLOAD_FOLDER = 'uploads'
-ALLOWED_EXTENSIONS = {'docx'}
 
 app = Flask(__name__, template_folder='templates')
 app.config['SECRET_KEY'] = os.urandom(42)
@@ -17,20 +16,40 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 def get_contentful_cookie(request):
+    """
+    Returns the Contentful authentication token from a request
+
+    @param request: the request that contains the cookie
+    """
     return request.cookies.get('contentful_token')
 
 
 def check_has_contentful_cookie(request):
+    """
+    Checks if a request has a Contentful authentication cookie
+
+    @param request: the request that contains the cookie
+    @return: True if the request has a contentful cookie, False otherwise
+    """
     return get_contentful_cookie(
         request) is not None  # todo more robust check here
 
 
 def allowed_file(filename):
+    """
+    Checks if a file ends with .docx
+
+    @param filename: the name of the file
+    @return: True if the file ends with docx, False otherwise
+    """
     return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+           filename.rsplit('.', 1)[1].lower() == 'docx'
 
 
 def uploaded_file_path(filename):
+    """
+    Returns the path of an uploaded file
+    """
     return os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
 

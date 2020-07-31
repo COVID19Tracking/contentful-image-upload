@@ -1,11 +1,14 @@
 ## Installation
 
-There are two required API tokens to run this script.
+### Dependencies
 
-1. A [Contentful Personal Access Token](https://www.contentful.com/help/personal-access-tokens/) to upload content
-2. A [Tinify API Key](https://tinypng.com/developers) for image optimization
+Python requirements live in `requirements.txt`.
 
-These credentials live in `config.json`, which should be structured like:
+### Credentials
+
+You will need a [Contentful Personal Access Token](https://www.contentful.com/help/personal-access-tokens/) to run this script.
+
+Credentials live in `config.json`, which should be structured like:
 
 ```
 {
@@ -19,7 +22,7 @@ Run the script with `python process_images.py my-word-document.docx`
 
 ## Development
 
-## Code formatting
+### Code formatting
 
 Code is formatted using [yapf](https://github.com/google/yapf).
 To format all files, try `yapf . -i --recursive` from the root directory.

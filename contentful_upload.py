@@ -64,6 +64,11 @@ def __get_contentful_space_id():
     return utils.get_config()["contentful-space-id"]
 
 
+def __get_contentful_environment(space):
+    environment_name = utils.get_config()["contentful-environment"]
+    return space.environments().find(environment_name)
+
+
 def upload(contentful_token):
     """
     Uploads the images in directory_path to Contentful
@@ -71,7 +76,7 @@ def upload(contentful_token):
     space = __get_client(contentful_token).spaces().find(
         __get_contentful_space_id())  # get the proper space
 
-    environment = space.environments().find('image-optimization')
+    environment = __get_contentful_environment(space)
 
     directory_path = utils.get_directory_path()
 

@@ -10,8 +10,6 @@ import logging
 
 # todo optimize and upload images in parallel
 
-config = utils.get_config()
-
 directory_path = utils.get_directory_path()
 
 
@@ -55,9 +53,6 @@ utils.clear_directory()
 
 
 def main(file_path, contentful_token=None):
-    if contentful_token is None:
-        contentful_token = utils.get_config()['contentful-access-token']
-
     extract_images_from_word(file_path)
 
     optimize_images()

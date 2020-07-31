@@ -14,9 +14,9 @@ Credentials live in `config.json`, which should be structured like:
 
 ```
 {
-  "contentful-access-token": "<contentful-access-token>",
   "contentful-space-id": "<contentful-space-id>",
   "directory-path": "imgs",
+  "contentful-environment": "<contentful-environment>",
   "contentful-client-id": "<contentful-client-id>",
   "redirect-uri": "<redirect-uri>"
 }

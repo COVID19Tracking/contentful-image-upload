@@ -89,13 +89,4 @@ def upload_file():
             <!doctype html>
             <h1>Hmm...the file your provided doesn't exist...</h1>
             '''
-    return '''
-    <!doctype html>
-    <title>Upload new File</title>
-    <p>authenticated with contentful &#10004;</p>
-    <h1>Upload new File</h1>
-    <form method=post enctype=multipart/form-data action="/upload">
-      <input type=file name=file>
-      <input type=submit value=Upload>
-    </form>
-    '''
+    return render_template('upload.html')

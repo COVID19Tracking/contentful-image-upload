@@ -86,10 +86,7 @@ def upload_file():
                                              args=(file_path,
                                                    contentful_token))
             thread.start()
-            return '''
-            <!doctype html>
-            <h1>You uploaded a file!</h1>
-            '''
+            return render_template('upload_success.html')
         else:
             return '''
             <!doctype html>

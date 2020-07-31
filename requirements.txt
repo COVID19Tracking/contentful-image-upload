@@ -1,2 +1,3 @@
 Pillow
 contentful_management
+flask

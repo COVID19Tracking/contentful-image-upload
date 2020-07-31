@@ -56,4 +56,4 @@ if __name__ == '__main__':
     extract_images_from_word(file_path)
     # todo check is png / convert to png
     optimize_images()
-    # contentful_upload.upload()
+    contentful_upload.upload()

@@ -1,5 +1,7 @@
 {
   "contentful-access-token": "",
   "contentful-space-id": "",
-  "directory-path": "imgs"
+  "directory-path": "imgs",
+  "contentful-client-id": "",
+  "redirect-uri": ""
 }

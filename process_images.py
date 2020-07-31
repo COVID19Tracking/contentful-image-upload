@@ -63,6 +63,9 @@ def main():
 
     contentful_upload.upload()
 
+    # todo delete Word doc
+    # todo add cap to total # of images, maybe 25?
+
 
 if __name__ == '__main__':
     main()

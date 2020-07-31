@@ -18,7 +18,12 @@ Credentials live in `config.json`, which should be structured like:
 }
 ```
 
-Run the script with `python process_images.py my-word-document.docx`
+Run the script with
+
+```
+export FLASK_APP=web.py
+flask run
+```
 
 ## Development
 

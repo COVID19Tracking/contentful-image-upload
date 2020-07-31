@@ -7,7 +7,7 @@
   <h1>Authenticating...</h1>
   <p>(JavaScript is required!)</p>
   <script>
-    const regex = /access_token=([A-z0-9_]*)&/m;
+    const regex = /access_token=(.*)&/m;
     const hash = window.location.hash;
 
     const token = hash.match(regex)[1];

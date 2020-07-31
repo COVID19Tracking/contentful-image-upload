@@ -53,12 +53,12 @@ def optimize_images():
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+utils.clear_directory()
+
 
 def main(file_path, contentful_token=None):
     if contentful_token is None:
         contentful_token = utils.get_config()['contentful-access-token']
-
-    utils.clear_directory()
 
     extract_images_from_word(file_path)
 
@@ -66,7 +66,8 @@ def main(file_path, contentful_token=None):
 
     contentful_upload.upload(contentful_token)
 
-    # todo delete Word doc
+    os.remove(file_path)  # delete doc when done
+
     # todo add cap to total # of images, maybe 25?
 
 

@@ -65,4 +65,4 @@ def main(file_path, contentful_token=None):
 
 
 if __name__ == '__main__':
-    main()
+    main('file.docx', 'token')

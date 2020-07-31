@@ -80,18 +80,28 @@ def upload(contentful_token):
 
     directory_path = utils.get_directory_path()
 
+    uploads = []
     for index, file in enumerate(utils.get_files()):
+        logging.info('Uploading upload: ' + __get_title(index))
+
         upload = space.uploads().create(join(directory_path,
                                              file))  # upload the image
+        uploads.append(upload)
 
+    assets = []
+    for index, upload in enumerate(uploads):
         # create the asset, linked to the upload
-        asset = __create_asset(environment, __get_title(index), file,
+        asset = __create_asset(environment, __get_title(index),
+                               __get_title(index),
                                upload.to_link().to_json())
         asset.process()
-        asset.publish()
+        assets.append(asset)
 
+    for index, asset in enumerate(assets):
         # create the image content block, linked to the asset
         image_content_block = __create_image_content_block(
             environment, __get_title(index),
             asset.to_link().to_json())
-        image_content_block.publish()
+
+    # image_content_block.publish()
+    [asset.publish() for asset in assets]  # todo handle with try()

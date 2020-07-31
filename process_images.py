@@ -4,15 +4,14 @@ import utils
 from os.path import join
 import os
 import shutil
-import tinify
 import zipfile
+from PIL import Image
 import logging
 
 # todo optimize and upload images in parallel
 
 config = utils.get_config()
 
-tinify.key = config['tinify-api-key']
 directory_path = utils.get_directory_path()
 
 
@@ -36,15 +35,16 @@ def extract_images_from_word(docxpath):
 
 def optimize_images():
     """
-    Optimizes the images in directory_path via tinify
+    Optimizes the images in directory_path with PIL's optimization
     """
     files = utils.get_files()
     for index, file in enumerate(files):
         logging.info('Optimizing image ' + str(index + 1) + ' of ' +
                      str(len(files)))
 
-        tinify.from_file(join(directory_path, file)).to_file(
-            join(directory_path, 'optimized_' + file))
+        Image.open(join(directory_path,
+                        file)).save(join(directory_path, 'optimized_' + file),
+                                    optimized=True)
         os.remove(join(directory_path, file))
 
 
@@ -56,4 +56,4 @@ if __name__ == '__main__':
     extract_images_from_word(file_path)
     # todo check is png / convert to png
     optimize_images()
-    contentful_upload.upload()
+    # contentful_upload.upload()

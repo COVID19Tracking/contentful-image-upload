@@ -11,7 +11,6 @@ These credentials live in `config.json`, which should be structured like:
 {
   "contentful-access-token": "<contentful-access-token>",
   "contentful-space-id": "<contentful-space-id>",
-  "tinify-api-key": "<tinify-api-key>",
   "directory-path": "imgs"
 }
 ```

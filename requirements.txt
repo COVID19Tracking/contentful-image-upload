@@ -1,2 +1,2 @@
-tinify
+Pillow
 contentful_management

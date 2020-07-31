@@ -13,7 +13,6 @@ ALLOWED_EXTENSIONS = {'docx'}
 app = Flask(__name__, template_folder='templates')
 app.config['SECRET_KEY'] = os.urandom(42)
 
-
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
@@ -22,7 +21,8 @@ def get_contentful_cookie(request):
 
 
 def check_has_contentful_cookie(request):
-    return get_contentful_cookie(request) is not None
+    return get_contentful_cookie(
+        request) is not None  # todo more robust check here
 
 
 def allowed_file(filename):
@@ -45,14 +45,9 @@ def main():
 def contentful_authentication():
     client_id = utils.get_config()['contentful-client-id']
     redirect_uri = utils.get_config()['redirect-uri']
-    return '''
-    <!doctype html>
-    <h1>
-        <a href="https://be.contentful.com/oauth/authorize?response_type=token&client_id={0}&redirect_uri={1}&scope=content_management_manage">
-        Authenticate on Contentful
-        </a>
-    </h1>
-    '''.format(client_id, redirect_uri)
+    return render_template('index.html',
+                           client_id=client_id,
+                           redirect_uri=redirect_uri)
 
 
 @app.route('/authenticate', methods=['GET'])
@@ -92,7 +87,7 @@ def upload_file():
         else:
             return '''
             <!doctype html>
-            <h1>You uploaded a file that doesn't exist...</h1>
+            <h1>Hmm...the file your provided doesn't exist...</h1>
             '''
     return '''
     <!doctype html>

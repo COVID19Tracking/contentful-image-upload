@@ -12,6 +12,10 @@ app = Flask(__name__, template_folder='templates')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
+def check_has_contentful_cookie(request):
+    return request.cookies.get('contentful_token') is not None
+
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -22,6 +26,13 @@ def uploaded_file_path(filename):
 
 
 @app.route('/', methods=['GET'])
+def main():
+    if check_has_contentful_cookie(request):
+        return upload_file()
+    else:
+        return contentful_authentication()
+
+
 def contentful_authentication():
     client_id = utils.get_config()['contentful-client-id']
     redirect_uri = utils.get_config()['redirect-uri']
@@ -74,6 +85,7 @@ def upload_file():
     return '''
     <!doctype html>
     <title>Upload new File</title>
+    <p>authenticated with contentful &#10004;</p>
     <h1>Upload new File</h1>
     <form method=post enctype=multipart/form-data>
       <input type=file name=file>

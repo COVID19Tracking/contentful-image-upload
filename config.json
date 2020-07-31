@@ -1,4 +1,5 @@
 {
-	"contentful-access-token": "",
-	"tinify-api-key": ""
+  "contentful-access-token": "",
+  "tinify-api-key": "",
+  "directory-path": "imgs"
 }

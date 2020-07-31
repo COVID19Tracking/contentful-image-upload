@@ -24,7 +24,7 @@ def extract_images_from_word(docxpath):
     doc = zipfile.ZipFile(docxpath)
 
     for info in doc.infolist():
-        if info.filename.endswith((".png", ".jpeg", ".gif")):
+        if info.filename.endswith((".png", ".jpeg")):
             doc.extract(info.filename, directory_path)
             shutil.copy(
                 join(directory_path, info.filename),
@@ -35,7 +35,8 @@ def extract_images_from_word(docxpath):
 
 def optimize_images():
     """
-    Optimizes the images in directory_path with PIL's optimization
+    Optimizes the images in directory_path with PIL's optimization.
+    This works with PNG and JPEG files.
     """
     files = utils.get_files()
     for index, file in enumerate(files):
@@ -52,8 +53,11 @@ logging.basicConfig(level=logging.INFO)
 
 if __name__ == '__main__':
     file_path = utils.get_file_path()
+
     utils.clear_directory()
+
     extract_images_from_word(file_path)
-    # todo check is png / convert to png
+
     optimize_images()
+
     contentful_upload.upload()

@@ -10,9 +10,10 @@ These credentials live in `config.json`, which should be structured like:
 ```
 {
   "contentful-access-token": "<contentful-access-token>",
-  "tinify-api-key": <tinify-api-key>""
+  "contentful-space-id": "<contentful-space-id>",
+  "tinify-api-key": "<tinify-api-key>",
+  "directory-path": "imgs"
 }
-
 ```
 
 Run the script with `python process_images.py my-word-document.docx`

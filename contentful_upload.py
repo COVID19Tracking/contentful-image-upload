@@ -57,19 +57,24 @@ def __get_title(index):
 
 
 def __get_client():
-    with open('config.json') as json_file:
-        config = json.load(json_file)
-
-    return Client(config['contentful-access-token'])
+    cf_access_token = utils.get_config()['contentful-access-token']
+    return Client(cf_access_token)
 
 
-def upload(directory_path, space_id):
+def __get_contentful_space_id():
+    return utils.get_config()["contentful-space-id"]
+
+
+def upload():
     """
     Uploads the images in directory_path to Contentful
     """
-    space = __get_client().spaces().find(space_id)  # get the proper space
+    space = __get_client().spaces().find(
+        __get_contentful_space_id())  # get the proper space
 
     environment = space.environments().find('image-optimization')
+
+    directory_path = utils.get_directory_path()
 
     for index, file in enumerate(utils.get_files()):
         upload = space.uploads().create(join(directory_path,

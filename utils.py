@@ -9,8 +9,12 @@ with open('config.json') as json_file:
     config = json.load(json_file)
 
 
+def get_config():
+    return config
+
+
 def get_directory_path():
-    return config['directory-path']
+    return get_config()['directory-path']
 
 
 def get_files():

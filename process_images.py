@@ -5,20 +5,15 @@ from os.path import join
 import os
 import shutil
 import tinify
-import json
 import zipfile
 import logging
 
-# todo add dir path, contentful space id to config
 # todo optimize and upload images in parallel
 
-CONTENTFUL_SPACE_ID = 'o2ll9t4ee8tq'
+config = utils.get_config()
 
-with open('config.json') as json_file:
-    config = json.load(json_file)
-
-directory_path = utils.get_directory_path()
 tinify.key = config['tinify-api-key']
+directory_path = utils.get_directory_path()
 
 
 def extract_images_from_word(docxpath):
@@ -61,4 +56,4 @@ if __name__ == '__main__':
     extract_images_from_word(file_path)
     # todo check is png / convert to png
     optimize_images()
-    contentful_upload.upload(directory_path, CONTENTFUL_SPACE_ID)
+    contentful_upload.upload()

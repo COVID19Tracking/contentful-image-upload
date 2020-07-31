@@ -22,7 +22,7 @@ def extract_images_from_word(docxpath):
     doc = zipfile.ZipFile(docxpath)
 
     for info in doc.infolist():
-        if info.filename.endswith((".png", ".jpeg")):
+        if info.filename.endswith((".png", ".jpeg", ".jpg")):
             doc.extract(info.filename, directory_path)
             shutil.copy(
                 join(directory_path, info.filename),

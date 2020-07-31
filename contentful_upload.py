@@ -71,7 +71,7 @@ def upload(directory_path, space_id):
 
     environment = space.environments().find('image-optimization')
 
-    for index, file in enumerate(utils.get_files(directory_path)):
+    for index, file in enumerate(utils.get_files()):
         upload = space.uploads().create(join(directory_path,
                                              file))  # upload the image
 

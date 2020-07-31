@@ -3,30 +3,39 @@ from os import listdir, makedirs
 import shutil
 from os.path import isfile, join, isfile
 import logging
+import json
+
+with open('config.json') as json_file:
+    config = json.load(json_file)
 
 
-def get_files(directory_path):
+def get_directory_path():
+    return config['directory-path']
+
+
+def get_files():
     """
-    Gets the files in the images directory, specified by directory_path
+    Gets the files in the images directory
     """
     return [
-        f for f in listdir(directory_path) if isfile(join(directory_path, f))
+        f for f in listdir(get_directory_path())
+        if isfile(join(get_directory_path(), f))
     ]
 
 
-def clear_directory(directory_path):
+def clear_directory():
     """
     Clears the directory_path directory, ensures that a directory exists at directory_path
     """
     logging.info('Clearing directory')
     try:
-        shutil.rmtree(directory_path)
+        shutil.rmtree(get_directory_path())
     except FileNotFoundError as e:
         pass  # directory doesn't exist, probably the first run
-    makedirs(directory_path)
+    makedirs(get_directory_path())
 
 
-def get_file_path(directory_path):
+def get_file_path():
     """
     Gets the file path from the CLI arguments
     """

@@ -1,5 +1,8 @@
 import utils
+import process_images
 
+import logging
+import multiprocessing
 from flask import Flask, flash, request, redirect, url_for, render_template
 from werkzeug.utils import secure_filename
 import os
@@ -12,8 +15,12 @@ app = Flask(__name__, template_folder='templates')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
+def get_contentful_cookie(request):
+    return request.cookies.get('contentful_token')
+
+
 def check_has_contentful_cookie(request):
-    return request.cookies.get('contentful_token') is not None
+    return get_contentful_cookie(request) is not None
 
 
 def allowed_file(filename):
@@ -71,8 +78,14 @@ def upload_file():
 
     filename = request.args.get('filename')
     if request.method == 'GET' and filename:
-        file_exists = os.path.isfile(uploaded_file_path(filename))
+        file_path = uploaded_file_path(filename)
+        file_exists = os.path.isfile(file_path)
         if file_exists:
+            contentful_token = get_contentful_cookie(request)
+            thread = multiprocessing.Process(target=process_images.main,
+                                             args=(file_path,
+                                                   contentful_token))
+            thread.start()
             return '''
             <!doctype html>
             <h1>You uploaded a file!</h1>
@@ -87,7 +100,7 @@ def upload_file():
     <title>Upload new File</title>
     <p>authenticated with contentful &#10004;</p>
     <h1>Upload new File</h1>
-    <form method=post enctype=multipart/form-data>
+    <form method=post enctype=multipart/form-data action="/upload">
       <input type=file name=file>
       <input type=submit value=Upload>
     </form>

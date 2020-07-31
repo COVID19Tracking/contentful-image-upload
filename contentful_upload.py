@@ -56,20 +56,19 @@ def __get_title(index):
         datetime.datetime.now().replace(microsecond=0))
 
 
-def __get_client():
-    cf_access_token = utils.get_config()['contentful-access-token']
-    return Client(cf_access_token)
+def __get_client(contentful_token):
+    return Client(contentful_token)
 
 
 def __get_contentful_space_id():
     return utils.get_config()["contentful-space-id"]
 
 
-def upload():
+def upload(contentful_token):
     """
     Uploads the images in directory_path to Contentful
     """
-    space = __get_client().spaces().find(
+    space = __get_client(contentful_token).spaces().find(
         __get_contentful_space_id())  # get the proper space
 
     environment = space.environments().find('image-optimization')

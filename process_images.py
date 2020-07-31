@@ -1,5 +1,6 @@
 import contentful_upload
 import utils
+import main
 
 from os.path import join
 import os
@@ -50,10 +51,12 @@ def optimize_images():
 
 
 logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
-def main():
-    file_path = utils.get_file_path()
+def main(file_path, contentful_token=None):
+    if contentful_token is None:
+        contentful_token = utils.get_config()['contentful-access-token']
 
     utils.clear_directory()
 
@@ -61,7 +64,7 @@ def main():
 
     optimize_images()
 
-    contentful_upload.upload()
+    contentful_upload.upload(contentful_token)
 
     # todo delete Word doc
     # todo add cap to total # of images, maybe 25?

@@ -1,6 +1,5 @@
 import contentful_upload
 import utils
-import main
 
 from os.path import join
 import os
@@ -43,7 +42,6 @@ def optimize_images():
     for index, file in enumerate(files):
         logging.info('Optimizing image ' + str(index + 1) + ' of ' +
                      str(len(files)))
-
         Image.open(join(directory_path,
                         file)).save(join(directory_path, 'optimized_' + file),
                                     optimized=True)

@@ -11,6 +11,8 @@ UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'docx'}
 
 app = Flask(__name__, template_folder='templates')
+app.config['SECRET_KEY'] = os.urandom(42)
+
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 

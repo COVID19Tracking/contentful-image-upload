@@ -27,6 +27,8 @@ flask run
 
 ## Development
 
+Set `export FLASK_ENV=development` to enable auto-updating as files change.
+
 ### Code formatting
 
 Code is formatted using [yapf](https://github.com/google/yapf).

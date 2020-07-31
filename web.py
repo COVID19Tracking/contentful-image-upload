@@ -1,11 +1,13 @@
-from flask import Flask, flash, request, redirect, url_for
+import utils
+
+from flask import Flask, flash, request, redirect, url_for, render_template
 from werkzeug.utils import secure_filename
 import os
 
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'docx'}
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -19,7 +21,26 @@ def uploaded_file_path(filename):
     return os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
+def contentful_authentication():
+    client_id = utils.get_config()['contentful-client-id']
+    redirect_uri = utils.get_config()['redirect-uri']
+    return '''
+    <!doctype html>
+    <h1>
+        <a href="https://be.contentful.com/oauth/authorize?response_type=token&client_id={0}&redirect_uri={1}&scope=content_management_manage">
+        Authenticate on Contentful
+        </a>
+    </h1>
+    '''.format(client_id, redirect_uri)
+
+
+@app.route('/authenticate', methods=['GET'])
+def contentful_callback():
+    return render_template('authenticate.html')
+
+
+@app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         # check if the post request has the file part

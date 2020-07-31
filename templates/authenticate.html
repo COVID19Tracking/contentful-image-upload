@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Authenticating...</title>
+</head>
+<body>
+  <h1>Authenticating...</h1>
+  <p>(JavaScript is required!)</p>
+  <script>
+    const regex = /access_token=([A-z0-9_]*)&/m;
+    const hash = window.location.hash;
+
+    const token = hash.match(regex)[1];
+
+    const getExpiryDatetime = (daysToExpire) => {
+      const date = new Date();
+      const expiryTimestamp = date.getTime() + (daysToExpire*24*60*60*1000);
+      date.setTime(expiryTimestamp);
+      return date.toGMTString();
+    }
+
+    document.cookie = `contentful_token=${token}; expires= ${getExpiryDatetime(7)}`;
+
+    window.location = '/'
+  </script>
+</body>
+</html>

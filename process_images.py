@@ -70,5 +70,5 @@ def main(file_path, contentful_token=None, delete_file=True):
 
 if __name__ == '__main__':
     main('file2.docx',
-         'token',
+         utils.get_config()['development-contentful-token'],
          delete_file=False)

@@ -27,16 +27,30 @@ def get_files():
     ]
 
 
-def clear_directory():
+def clear_directory(directory_path):
     """
     Clears the directory_path directory, ensures that a directory exists at directory_path
     """
-    logging.info('Clearing directory')
+    logging.info('Clearing directory ' + directory_path)
     try:
-        shutil.rmtree(get_directory_path())
+        shutil.rmtree(directory_path)
     except FileNotFoundError as e:
         pass  # directory doesn't exist, probably the first run
-    makedirs(get_directory_path())
+    makedirs(directory_path)
+
+
+def make_logs_directory():
+    """
+    Clears the images directory, makes sure the logs directory exists
+    """
+    clear_directory('logs')
+
+
+def clear_images_directory():
+    """
+    Clears the images directory, makes sure the directory exists
+    """
+    clear_directory(get_directory_path())
 
 
 def get_file_path():

@@ -9,7 +9,7 @@ import os
 
 UPLOAD_FOLDER = 'uploads'
 
-app = Flask(__name__, template_folder='templates')
+app = Flask(__name__, template_folder='templates', host='0.0.0.0', port=80)
 app.config['SECRET_KEY'] = os.urandom(42)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER

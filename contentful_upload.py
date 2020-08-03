@@ -21,7 +21,8 @@ def __create_asset(environment, title, file, uploadFrom):
                 'file': {
                     'en-US': {
                         'fileName': file,
-                        'contentType': 'image/png',
+                        'contentType':
+                        'image/png',  # todo set based on image type
                         'uploadFrom': uploadFrom
                     }
                 }
@@ -70,11 +71,7 @@ def __get_contentful_environment(space):
 
 
 def __publish_items(items):
-    for attempt in range(3):
-        try:
-            [item.publish() for item in items]
-        except VersionMismatchError as e:
-            print(item, 'publising failed')
+    [item.publish() for item in items]
 
 
 def upload(contentful_token):
@@ -113,6 +110,14 @@ def upload(contentful_token):
             asset.to_link().to_json())
         image_content_blocks.append(image_content_block)
 
-    # image_content_block.publish()
+    assets = [environment.assets().find(a.id)
+              for a in assets]  # update from Contentful
+    logging.info('Publishing ' + str(len(assets)) + ' assets')
     __publish_items(assets)
+
+    image_content_blocks = [
+        environment.entries().find(icb.id) for icb in image_content_blocks
+    ]  # update from Contentful
+    logging.info('Publishing ' + str(len(image_content_blocks)) +
+                 ' image content blocks')
     __publish_items(image_content_blocks)

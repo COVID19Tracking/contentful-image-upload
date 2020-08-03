@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Upload a Word Document</title>
+  <style>
+    code {
+      font-size: 1.1em;
+    }
+  </style>
+</head>
+<body>
+  <p style="color: green;">authenticated with contentful &#10004;</p>
+  <h1>Upload a Word Document</h1>
+  <h2>How do I Use This?</h2>
+  <ol>
+    <li>Go to your Google Document</li>
+    <li>
+      Click on
+      <code>File</code>
+      &#8594;
+      <code>Download</code>
+      &#8594;
+      <code>Microsoft Word (.docx)</code>
+    </li>
+    <li>Upload that document below</li>
+  </ol>
+  <form method=post enctype=multipart/form-data action="/upload">
+    <input type=file name=file>
+    <input type=submit value=Upload>
+  </form>
+</body>
+</html>

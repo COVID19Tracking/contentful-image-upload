@@ -1,4 +1,5 @@
 FROM tiangolo/uwsgi-nginx-flask:python3.7
+
 COPY ./requirements.txt /var/www/requirements.txt
 RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get -y \
     install sudo xvfb \
@@ -12,3 +13,5 @@ RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get -y \
     libharfbuzz-dev libfribidi-dev && apt-get clean
 RUN python -m pip install -U --force-reinstall pip
 RUN pip install -r /var/www/requirements.txt
+
+COPY ./app /app

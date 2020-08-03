@@ -53,17 +53,19 @@ logger = logging.getLogger(__name__)
 utils.clear_directory()
 
 
-def main(file_path, contentful_token=None):
-    # extract_images_from_word(file_path)
+def main(file_path, contentful_token=None, delete_file=True):
+    extract_images_from_word(file_path)
 
     optimize_images()
 
     contentful_upload.upload(contentful_token)
 
-    os.remove(file_path)  # delete doc when done
-
     # todo add cap to total # of images, maybe 25?
+    if delete_file:
+        os.remove(file_path)  # delete doc when done
 
 
 if __name__ == '__main__':
-    main('file.docx', 'token')
+    main('file2.docx',
+         'token',
+         delete_file=False)

@@ -31,6 +31,9 @@ flask run
 
 Set `export FLASK_ENV=development` to enable auto-updating as files change.
 
+## todos
+Todo items are marked with `todo` in the comments. Try `grep -r "todo"` to find outstanding items.
+
 ### Code formatting
 
 Code is formatted using [yapf](https://github.com/google/yapf).

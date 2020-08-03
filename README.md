@@ -25,7 +25,7 @@ Credentials live in `config.json`, which should be structured like:
 Run the script with
 
 ```
-export FLASK_APP=run.py
+export FLASK_APP=app.py
 flask run
 ```
 

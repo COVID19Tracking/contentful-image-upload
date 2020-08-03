@@ -10,7 +10,7 @@ Python requirements live in `requirements.txt`.
 
 You will need a [Contentful OAuth Application](https://app.contentful.com/account/profile/developers/applications) to run this program. ([Docs here](https://www.contentful.com/developers/docs/extensibility/oauth/))
 
-Credentials live in `config.json`, which should be structured like:
+Credentials live in `app/config.json`, which should be structured like:
 
 ```
 {

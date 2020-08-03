@@ -22,7 +22,7 @@ def extract_images_from_word(docxpath):
     doc = zipfile.ZipFile(docxpath)
 
     for info in doc.infolist():
-        if info.filename.endswith((".png", ".jpeg", ".jpg")):
+        if info.filename.endswith((".png", ".jpeg", ".jpg")):  # todo add gifs
             doc.extract(info.filename, directory_path)
             shutil.copy(
                 join(directory_path, info.filename),
@@ -36,6 +36,7 @@ def optimize_images():
     Optimizes the images in directory_path with PIL's optimization.
     This works with PNG and JPEG files.
     """
+    # todo bypass with gifs
     files = utils.get_files()
     for index, file in enumerate(files):
         logging.info('Optimizing image ' + str(index + 1) + ' of ' +
@@ -53,7 +54,7 @@ utils.clear_directory()
 
 
 def main(file_path, contentful_token=None):
-    extract_images_from_word(file_path)
+    # extract_images_from_word(file_path)
 
     optimize_images()
 

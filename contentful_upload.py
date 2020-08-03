@@ -69,6 +69,14 @@ def __get_contentful_environment(space):
     return space.environments().find(environment_name)
 
 
+def __publish_items(items):
+    for attempt in range(3):
+        try:
+            [item.publish() for item in items]
+        except VersionMismatchError as e:
+            print(item, 'publising failed')
+
+
 def upload(contentful_token):
     """
     Uploads the images in directory_path to Contentful
@@ -97,11 +105,14 @@ def upload(contentful_token):
         asset.process()
         assets.append(asset)
 
+    image_content_blocks = []
     for index, asset in enumerate(assets):
         # create the image content block, linked to the asset
         image_content_block = __create_image_content_block(
             environment, __get_title(index),
             asset.to_link().to_json())
+        image_content_blocks.append(image_content_block)
 
     # image_content_block.publish()
-    [asset.publish() for asset in assets]  # todo handle with try()
+    __publish_items(assets)
+    __publish_items(image_content_blocks)

@@ -102,7 +102,9 @@ def upload_file():
                                              args=(file_path,
                                                    contentful_token))
             thread.start()
-            return render_template('upload_success.html')
+            return render_template(
+                'upload_success.html'
+            )  # todo make this link direct to the right CF space
         else:
             return '''
             <!doctype html>

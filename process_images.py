@@ -62,7 +62,10 @@ def main(file_path, contentful_token=None, delete_file=True):
 
     # todo add cap to total # of images, maybe 25?
     if delete_file:
+        logger.info('Deleting ' + file_path)
         os.remove(file_path)  # delete doc when done
+
+    logger.info('Completed run for ' + file_path)
 
 
 if __name__ == '__main__':

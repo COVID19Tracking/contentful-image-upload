@@ -31,7 +31,11 @@ flask run
 
 Set `export FLASK_ENV=development` to enable auto-updating as files change.
 
-## todos
+### Deployment
+1. Build the Docker container: `docker build -t image-upload .`
+2. Run the Docker container: `docker run -d --name image-upload-container -p 80:80 image-upload`
+
+### todos
 Todo items are marked with `todo` in the comments. Try `grep -r "todo"` to find outstanding items.
 
 ### Code formatting

@@ -50,7 +50,7 @@ def optimize_images():
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-utils.clear_images_directory()
+# utils.clear_images_directory()
 
 
 def main(file_path, contentful_token=None, delete_file=True):

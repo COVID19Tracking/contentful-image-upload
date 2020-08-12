@@ -2,3 +2,5 @@
 imgs/
 app/config.json
 __pycache__/
+data/certbot
+

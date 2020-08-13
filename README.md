@@ -29,6 +29,11 @@ Run the development server with:
 * `python3 -m flask run`
 * Visit http://localhost:5000
 
+#### HTTPS Tunneling
+Because Contentful requires HTTPS for its URI redirects, you'll need to be use a service like [ngrok](https://ngrok.com/) to run the development server. The development server runs on port 5000: you'll need to forward 5000 over http.
+
+Keep in mind that you'll need to update the URI redirect in [your OAuth application](https://app.contentful.com/account/profile/developers/applications) to the HTTPS proxy in order for the authentication workflow to work.
+
 ### Deployment
 This project uses `docker-compose` for containerization. There are three services:
 1. `nginx`, which runs on ports 80 and 443.

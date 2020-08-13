@@ -10,3 +10,5 @@ jobs:
       # Run YAPF
       - name: YAPF Python Code Formatting Check
         uses: AlexanderMelde/yapf-action@v1.0
+        with:
+          args: . -i --recursive

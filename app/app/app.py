@@ -17,7 +17,8 @@ app.config['SECRET_KEY'] = os.urandom(42)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 if __name__ == '__main__':
-   app.run(host="0.0.0.0", port=int("8000"), debug=False)
+    app.run(host="0.0.0.0", port=int("8000"), debug=False)
+
 
 def get_contentful_cookie(request):
     """

@@ -1,9 +1,5 @@
 ## Installation
 
-### Dependencies
-
-Python requirements live in `requirements.txt`.
-
 ### Credentials
 
 You will need a [Contentful OAuth Application](https://app.contentful.com/account/profile/developers/applications) to run this program. ([Docs here](https://www.contentful.com/developers/docs/extensibility/oauth/))
@@ -20,20 +16,30 @@ Credentials live in `app/config.json`, which should be structured like:
 }
 ```
 
-Run the script with
+## Getting Started
 
-```
-export FLASK_APP=app.py
-flask run
-```
+### Dependencies
 
-## Development
+Python requirements live in `requirements.txt`.
+Install them with `pip3 install -r requirements.txt`
 
-Set `export FLASK_ENV=development` to enable auto-updating as files change.
+### Development
+Run the development server with:
+* `export FLASK_APP=app/app/app.py`
+* `python3 -m flask run`
+* Visit http://localhost:5000
 
 ### Deployment
-1. Build the Docker container: `docker build -t image-upload .`
-2. Run the Docker container: `docker run -d --name image-upload-container -p 80:80 image-upload`
+This project uses `docker-compose` for containerization. There are three services:
+1. `nginx`, which runs on ports 80 and 443.
+2. `flask_app`, the actual Flask application, runs on port 5000. (`nginx` reverse proxies to `0.0.0.0:5000` via uswgi.)
+3. `certbot`, which handles HTTPS certificates.
+
+(This configuration is based on [wmnnd's boilerplate](https://github.com/wmnnd/nginx-certbot).)
+
+#### OK, but how does it run?
+
+`docker-compose up` should do the trick.
 
 ### todos
 Todo items are marked with `todo` in the comments. Try `grep -r "todo"` to find outstanding items.

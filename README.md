@@ -49,6 +49,13 @@ This project uses `docker-compose` for containerization. There are three service
 
 `docker-compose up` should do the trick.
 
+#### Updates
+To update the codebase on the server, run:
+1. `git pull origin master`
+2. `sudo docker-compose build`
+3. `sudo docker-compose restart`
+Note that `restart` [does _not_ reflect changes made to `docker-compose.yml`](https://docs.docker.com/compose/reference/restart/).
+
 ### todos
 Todo items are marked with `todo` in the comments.
 Try `grep -r "todo"` to find outstanding items.

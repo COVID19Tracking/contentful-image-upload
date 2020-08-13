@@ -25,7 +25,8 @@ Install them with `pip3 install -r requirements.txt`
 
 ### Development
 Run the development server with:
-* `export FLASK_APP=app/app/app.py`
+* `cd app`
+* `export FLASK_APP=app/app.py`
 * `python3 -m flask run`
 * Visit http://localhost:5000
 

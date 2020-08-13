@@ -47,7 +47,7 @@ This project uses `docker-compose` for containerization. There are three service
 
 #### OK, but how does it run?
 
-`docker-compose up` should do the trick.
+`sudo docker-compose up` should do the trick.
 
 #### Updates
 To update the codebase on the server, run:

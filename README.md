@@ -9,7 +9,7 @@ Credentials live in `app/config.json`, which should be structured like:
 ```
 {
   "contentful-space-id": "<contentful-space-id>",
-  "directory-path": "imgs",
+  "images-directory": "imgs",
   "contentful-environment": "<contentful-environment>",
   "contentful-client-id": "<contentful-client-id>",
   "redirect-uri": "<redirect-uri>"

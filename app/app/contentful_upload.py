@@ -77,20 +77,20 @@ def __publish_items(items):
 
 def upload(contentful_token):
     """
-    Uploads the images in directory_path to Contentful
+    Uploads the images in images_directory to Contentful
     """
     space = __get_client(contentful_token).spaces().find(
         __get_contentful_space_id())  # get the proper space
 
     environment = __get_contentful_environment(space)
 
-    directory_path = utils.get_directory_path()
+    images_directory = utils.get_images_directory()
 
     uploads = []
     for index, file in enumerate(utils.get_files()):
         logging.info('Uploading upload: ' + __get_title(index))
 
-        upload = space.uploads().create(join(directory_path,
+        upload = space.uploads().create(join(images_directory,
                                              file))  # upload the image
         uploads.append(upload)
 

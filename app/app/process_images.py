@@ -10,12 +10,12 @@ import logging
 
 # todo optimize and upload images in parallel
 
-directory_path = utils.get_directory_path()
+images_directory = utils.get_images_directory()
 
 
 def extract_images_from_word(docxpath):
     """
-    Pulls the images from a word document into directory_path
+    Pulls the images from a Word document into images_directory
     """
     logging.info('Extracting images from Word')
 
@@ -23,17 +23,17 @@ def extract_images_from_word(docxpath):
 
     for info in doc.infolist():
         if info.filename.endswith((".png", ".jpeg", ".jpg")):  # todo add gifs
-            doc.extract(info.filename, directory_path)
+            doc.extract(info.filename, images_directory)
             shutil.copy(
-                join(directory_path, info.filename),
-                join(directory_path,
+                join(images_directory, info.filename),
+                join(images_directory,
                      'contentful_' + info.filename.split("/")[-1]))
     doc.close()
 
 
 def optimize_images():
     """
-    Optimizes the images in directory_path with PIL's optimization.
+    Optimizes the images in images_directory with PIL's optimization.
     This works with PNG and JPEG files.
     """
     # todo bypass with gifs
@@ -41,10 +41,10 @@ def optimize_images():
     for index, file in enumerate(files):
         logging.info('Optimizing image ' + str(index + 1) + ' of ' +
                      str(len(files)))
-        Image.open(join(directory_path,
-                        file)).save(join(directory_path, 'optimized_' + file),
+        Image.open(join(images_directory,
+                        file)).save(join(images_directory, 'optimized_' + file),
                                     optimized=True)
-        os.remove(join(directory_path, file))
+        os.remove(join(images_directory, file))
 
 
 logging.basicConfig(level=logging.INFO)

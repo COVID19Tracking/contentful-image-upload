@@ -65,6 +65,9 @@ def main(file_path, contentful_token=None, delete_file=True):
         logger.info('Deleting ' + file_path)
         os.remove(file_path)  # delete doc when done
 
+    logger.info('Clearing imgs directory')
+    utils.clear_images_directory()
+
     logger.info('Completed run for ' + file_path)
 
 

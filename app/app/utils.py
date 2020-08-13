@@ -13,7 +13,7 @@ def get_config():
     return config
 
 
-def get_directory_path():
+def get_directory_path():  # todo refactor to "get_images_directory"
     return get_config()['directory-path']
 
 

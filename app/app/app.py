@@ -108,8 +108,9 @@ def upload_file():
                                                    contentful_token))
             thread.start()
             return render_template(
-                'upload_success.html'
-            )  # todo make this link direct to the right CF space
+                'upload_success.html',
+                space=utils.get_config()['contentful-space-id'],
+                environment=utils.get_config()['contentful-environment'])
         else:
             return '''
             <!doctype html>

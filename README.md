@@ -24,10 +24,7 @@ Python requirements live in `requirements.txt`.
 Install them with `pip3 install -r requirements.txt`
 
 ### Development
-Run the development server with:
-* `cd app`
-* `export FLASK_APP=app/app.py`
-* `python3 -m flask run`
+* Run the development server with `./develop`. (You may need to `chmod +x develop.sh` first.)
 * Visit http://localhost:5000
 
 #### HTTPS Tunneling

@@ -1,0 +1,12 @@
+name: Check formatting
+on: [pull_request]
+
+jobs:
+  build:
+    name: YAPF
+    # This job runs on Linux
+    runs-on: ubuntu-latest
+    steps:
+      # Run YAPF
+      - name: YAPF Python Code Formatting Check
+        uses: AlexanderMelde/yapf-action@v1.0

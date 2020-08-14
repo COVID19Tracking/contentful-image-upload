@@ -12,7 +12,8 @@ import logging
 
 directory_path = utils.get_directory_path()
 
-IMAGE_EXTENSIONS = (".png", ".jpeg", ".jpg") # todo add gifs
+IMAGE_EXTENSIONS = (".png", ".jpeg", ".jpg")  # todo add gifs
+
 
 def extract_images_from_word(docx_path):
     """
@@ -60,13 +61,16 @@ def check_upload_meets_maximum(docx_path):
         False: this file has too many images
         True: the number of images in this file is below the maximum
     """
-    max_images = 15 # the maximum allowed number of images per uploaded file
+    max_images = 15  # the maximum allowed number of images per uploaded file
 
     doc = zipfile.ZipFile(docx_path)
 
-    count_images_in_file = sum(file for file in [info.filename.endswith(IMAGE_EXTENSIONS) for info in doc.infolist()])
+    count_images_in_file = sum(
+        file for file in
+        [info.filename.endswith(IMAGE_EXTENSIONS) for info in doc.infolist()])
 
-    return (count_images_in_file < max_images, count_images_in_file, max_images)
+    return (count_images_in_file < max_images, count_images_in_file,
+            max_images)
 
 
 def main(file_path, contentful_token=None, delete_file=True):

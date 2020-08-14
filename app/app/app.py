@@ -81,7 +81,9 @@ def contentful_callback():
 
 @app.route('/too-many-images', methods=['GET'])
 def too_many_images(attempted_image_count, max_images):
-    return render_template('too_many_images.html', attempted_image_count=attempted_image_count, max_images=max_images)
+    return render_template('too_many_images.html',
+                           attempted_image_count=attempted_image_count,
+                           max_images=max_images)
 
 
 @app.route('/upload', methods=['GET', 'POST'])
@@ -106,14 +108,18 @@ def upload_file():
     if request.method == 'GET' and filename:
         file_path = uploaded_file_path(filename)
         file_exists = os.path.isfile(file_path)
-        meets_maximum, attempted_image_count, max_image_count = process_images.check_upload_meets_maximum(file_path)
-        if not meets_maximum: # check if this file has more images than the maximum allowed value
-            logging.info(filename + ' has too many images: ' + str(attempted_image_count) + ' attempted images exceeds the maximum of ' + str(max_image_count))
+        meets_maximum, attempted_image_count, max_image_count = process_images.check_upload_meets_maximum(
+            file_path)
+        if not meets_maximum:  # check if this file has more images than the maximum allowed value
+            logging.info(filename + ' has too many images: ' +
+                         str(attempted_image_count) +
+                         ' attempted images exceeds the maximum of ' +
+                         str(max_image_count))
             return render_template(
                 'too_many_images.html',
                 attempted_image_count=attempted_image_count,
                 max_image_count=max_image_count,
-                )
+            )
         if file_exists:
             contentful_token = get_contentful_cookie(request)
             thread = multiprocessing.Process(target=process_images.main,

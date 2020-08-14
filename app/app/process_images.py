@@ -12,17 +12,19 @@ import logging
 
 directory_path = utils.get_directory_path()
 
+IMAGE_EXTENSIONS = (".png", ".jpeg", ".jpg")  # todo add gifs
 
-def extract_images_from_word(docxpath):
+
+def extract_images_from_word(docx_path):
     """
     Pulls the images from a word document into directory_path
     """
     logging.info('Extracting images from Word')
 
-    doc = zipfile.ZipFile(docxpath)
+    doc = zipfile.ZipFile(docx_path)
 
     for info in doc.infolist():
-        if info.filename.endswith((".png", ".jpeg", ".jpg")):  # todo add gifs
+        if info.filename.endswith(IMAGE_EXTENSIONS):
             doc.extract(info.filename, directory_path)
             shutil.copy(
                 join(directory_path, info.filename),
@@ -50,17 +52,32 @@ def optimize_images():
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# utils.clear_images_directory()
+
+def check_upload_meets_maximum(docx_path):
+    """
+    Checks if the uploaded file has fewer than the maximum number of allowed images.
+    Returns a tuple like: (has_too_many_images<bool>, attempted_image_count<int>, max_image_count<int>)
+    has_too_many_images:
+        False: this file has too many images
+        True: the number of images in this file is below the maximum
+    """
+    max_images = 15  # the maximum allowed number of images per uploaded file
+
+    doc = zipfile.ZipFile(docx_path)
+
+    count_images_in_file = sum(
+        file for file in
+        [info.filename.endswith(IMAGE_EXTENSIONS) for info in doc.infolist()])
+
+    return (count_images_in_file < max_images, count_images_in_file,
+            max_images)
 
 
 def main(file_path, contentful_token=None, delete_file=True):
-    extract_images_from_word(file_path)
-
     optimize_images()
 
     contentful_upload.upload(contentful_token)
 
-    # todo add cap to total # of images, maybe 25?
     if delete_file:
         logger.info('Deleting ' + file_path)
         os.remove(file_path)  # delete doc when done

@@ -58,7 +58,7 @@ def __get_title(index):
         datetime.datetime.now().replace(microsecond=0))
 
 
-def __get_client(contentful_token):
+def __get_contentful_client(contentful_token):
     return Client(contentful_token)
 
 
@@ -79,7 +79,7 @@ def upload(contentful_token):
     """
     Uploads the images in images_directory to Contentful
     """
-    space = __get_client(contentful_token).spaces().find(
+    space = __get_contentful_client(contentful_token).spaces().find(
         __get_contentful_space_id())  # get the proper space
 
     environment = __get_contentful_environment(space)

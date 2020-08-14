@@ -58,7 +58,7 @@ def __get_title(index):
         datetime.datetime.now().replace(microsecond=0))
 
 
-def __get_client(contentful_token):
+def __get_contentful_client(contentful_token):
     return Client(contentful_token)
 
 
@@ -72,25 +72,28 @@ def __get_contentful_environment(space):
 
 
 def __publish_items(items):
+    """
+    Publishes a list of Contentful assets/entries.
+    """
     [item.publish() for item in items]
 
 
-def upload(contentful_token):
+def upload_images(contentful_token):
     """
-    Uploads the images in directory_path to Contentful
+    Uploads the images in images_directory to Contentful
     """
-    space = __get_client(contentful_token).spaces().find(
+    space = __get_contentful_client(contentful_token).spaces().find(
         __get_contentful_space_id())  # get the proper space
 
     environment = __get_contentful_environment(space)
 
-    directory_path = utils.get_directory_path()
+    images_directory = utils.get_images_directory()
 
     uploads = []
     for index, file in enumerate(utils.get_files()):
         logging.info('Uploading upload: ' + __get_title(index))
 
-        upload = space.uploads().create(join(directory_path,
+        upload = space.uploads().create(join(images_directory,
                                              file))  # upload the image
         uploads.append(upload)
 

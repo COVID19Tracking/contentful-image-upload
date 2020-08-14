@@ -13,8 +13,8 @@ def get_config():
     return config
 
 
-def get_directory_path():  # todo refactor to "get_images_directory"
-    return get_config()['directory-path']
+def get_images_directory():
+    return get_config()['images-directory']
 
 
 def get_files():
@@ -22,8 +22,8 @@ def get_files():
     Gets the files in the images directory
     """
     return [
-        f for f in listdir(get_directory_path())
-        if isfile(join(get_directory_path(), f))
+        f for f in listdir(get_images_directory())
+        if isfile(join(get_images_directory(), f))
     ]
 
 
@@ -50,7 +50,7 @@ def clear_images_directory():
     """
     Clears the images directory, makes sure the directory exists
     """
-    clear_directory(get_directory_path())
+    clear_directory(get_images_directory())
 
 
 def get_file_path():

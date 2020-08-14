@@ -58,7 +58,7 @@ def main(file_path, contentful_token=None, delete_file=True):
 
     optimize_images()
 
-    contentful_upload.upload(contentful_token)
+    contentful_upload.upload_images(contentful_token)
 
     # todo add cap to total # of images, maybe 25?
     if delete_file:

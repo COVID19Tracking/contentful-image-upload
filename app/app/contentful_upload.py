@@ -78,7 +78,7 @@ def __publish_items(items):
     [item.publish() for item in items]
 
 
-def upload(contentful_token):
+def upload_images(contentful_token):
     """
     Uploads the images in images_directory to Contentful
     """

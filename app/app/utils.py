@@ -30,6 +30,8 @@ def get_files():
 def clear_directory(directory_path):
     """
     Clears the directory_path directory, ensures that a directory exists at directory_path
+
+    @param directory_path: The path of the directory to clear
     """
     logging.info('Clearing directory ' + directory_path)
     try:

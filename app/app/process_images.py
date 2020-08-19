@@ -87,9 +87,3 @@ def main(file_path, contentful_token=None, delete_file=True):
     utils.clear_images_directory()
 
     logger.info('Completed run for ' + file_path)
-
-
-if __name__ == '__main__':
-    main('file2.docx',
-         utils.get_config()['development-contentful-token'],
-         delete_file=False)

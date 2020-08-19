@@ -1,5 +1,6 @@
 import os
 
+
 def allowed_file(filename):
     """
     Checks if a file ends with .docx

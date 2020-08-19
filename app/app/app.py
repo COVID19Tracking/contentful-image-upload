@@ -18,7 +18,6 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.register_blueprint(upload_file.upload)
 
 
-
 @app.route('/', methods=['GET'])
 def main():
     if contentful_utils.check_has_contentful_cookie(request):
@@ -62,6 +61,7 @@ def too_many_images(attempted_image_count, max_images):
     return render_template('too_many_images.html',
                            attempted_image_count=attempted_image_count,
                            max_images=max_images)
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=int("8000"), debug=False)

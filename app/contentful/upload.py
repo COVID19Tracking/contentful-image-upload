@@ -3,6 +3,7 @@ import logging
 import utils
 from . import contentful as cf
 
+
 def upload_to_contentful(contentful_token):
     """
     Uploads the images in the images directory to Contentful
@@ -28,8 +29,8 @@ def upload_to_contentful(contentful_token):
     for index, upload in enumerate(uploads):
         # create the asset, linked to the upload
         asset = cf.__create_asset(environment, cf.__get_title(index),
-                               cf.__get_title(index),
-                               upload.to_link().to_json())
+                                  cf.__get_title(index),
+                                  upload.to_link().to_json())
         asset.process()
         assets.append(asset)
 

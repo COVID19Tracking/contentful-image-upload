@@ -2,16 +2,15 @@ import process_images
 from contentful import utils as contentful_utils
 from . import utils
 from . import app
-import utils as file_utils # todo rename this in filesystem
-
+import utils as file_utils  # todo rename this in filesystem
 
 import multiprocessing
 import os
 from flask import Blueprint, request, redirect, url_for, render_template
 from werkzeug.utils import secure_filename
 
-
 upload = Blueprint('upload', __name__, template_folder='templates')
+
 
 @upload.route('/upload', methods=['GET', 'POST'])
 def main():
@@ -32,15 +31,13 @@ def main():
             return redirect(request.url)
         if file and utils.allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(
-                utils.get_uploaded_file_path(filename,
-                                                 app.UPLOAD_FOLDER))
+            file.save(utils.get_uploaded_file_path(filename,
+                                                   app.UPLOAD_FOLDER))
             return redirect(url_for('upload.main', filename=filename))
 
     filename = request.args.get('filename')
     if request.method == 'GET' and filename:
-        file_path = utils.get_uploaded_file_path(
-            filename, app.UPLOAD_FOLDER)
+        file_path = utils.get_uploaded_file_path(filename, app.UPLOAD_FOLDER)
         file_exists = os.path.isfile(file_path)
         meets_maximum, attempted_image_count, max_image_count = process_images.check_upload_meets_maximum(
             file_path)

@@ -76,4 +76,3 @@ def __publish_items(items):
     Publishes a list of Contentful assets/entries.
     """
     [item.publish() for item in items]
-

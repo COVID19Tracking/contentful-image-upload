@@ -2,6 +2,7 @@
 
 from . import utils
 from . import process_images
+from contentful import utils as contentful_utils
 
 import logging
 import multiprocessing
@@ -18,26 +19,6 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=int("8000"), debug=False)
-
-
-def get_contentful_cookie(request):
-    """
-    Returns the Contentful authentication token from a request
-
-    @param request: the request that contains the cookie
-    """
-    return request.cookies.get('contentful_token')
-
-
-def check_has_contentful_cookie(request):
-    """
-    Checks if a request has a Contentful authentication cookie
-
-    @param request: the request that contains the cookie
-    @return: True if the request has a contentful cookie, False otherwise
-    """
-    return get_contentful_cookie(
-        request) is not None  # todo more robust check here
 
 
 def allowed_file(filename):
@@ -60,7 +41,7 @@ def uploaded_file_path(filename):
 
 @app.route('/', methods=['GET'])
 def main():
-    if check_has_contentful_cookie(request):
+    if contentful_utils.check_has_contentful_cookie(request):
         # go to the upload page if the user is authenticated
         return upload_file()
     else:
@@ -142,7 +123,7 @@ def upload_file():
                 max_image_count=max_image_count,
             )
         if file_exists:
-            contentful_token = get_contentful_cookie(request)
+            contentful_token = contentful_utils.get_contentful_cookie(request)
             thread = multiprocessing.Process(target=process_images.main,
                                              args=(file_path,
                                                    contentful_token))

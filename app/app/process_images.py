@@ -64,7 +64,7 @@ def check_upload_meets_maximum(docx_path):
     """
     max_images = 15  # the maximum allowed number of images per uploaded file
 
-    doc = zipfile.ZipFile(docx_path) # todo handle the docx not existing
+    doc = zipfile.ZipFile(docx_path)  # todo handle the docx not existing
 
     count_images_in_file = sum(
         file for file in

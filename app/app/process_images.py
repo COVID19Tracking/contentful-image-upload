@@ -1,5 +1,5 @@
 from contentful import contentful
-from . import utils
+import utils
 
 from os.path import join
 import os

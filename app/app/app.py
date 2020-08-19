@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from . import utils
+import utils
 from . import app_utils  # todo rename this
 from . import process_images
 from contentful import utils as contentful_utils

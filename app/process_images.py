@@ -1,5 +1,5 @@
-from . import contentful
-from . import utils
+from contentful import upload
+import file_utils
 
 from os.path import join
 import os
@@ -10,7 +10,7 @@ import logging
 
 # todo optimize and upload images in parallel
 
-images_directory = utils.get_images_directory()
+images_directory = file_utils.get_images_directory()
 
 IMAGE_EXTENSIONS = (".png", ".jpeg", ".jpg")  # todo add gifs
 
@@ -39,12 +39,13 @@ def optimize_images():
     This works with PNG and JPEG files.
     """
     # todo bypass with gifs
-    files = utils.get_files()
+    files = file_utils.get_image_files()
     for index, file in enumerate(files):
         logging.info('Optimizing image ' + str(index + 1) + ' of ' +
                      str(len(files)))
         Image.open(join(images_directory,
-                        file)).save(join(images_directory, 'optimized_' + file),
+                        file)).save(join(images_directory,
+                                         'optimized_' + file),
                                     optimized=True)
         os.remove(join(images_directory, file))
 
@@ -63,7 +64,7 @@ def check_upload_meets_maximum(docx_path):
     """
     max_images = 15  # the maximum allowed number of images per uploaded file
 
-    doc = zipfile.ZipFile(docx_path)
+    doc = zipfile.ZipFile(docx_path)  # todo handle the docx not existing
 
     count_images_in_file = sum(
         file for file in
@@ -74,21 +75,17 @@ def check_upload_meets_maximum(docx_path):
 
 
 def main(file_path, contentful_token=None, delete_file=True):
+    extract_images_from_word(file_path)
+
     optimize_images()
 
-    contentful.upload_images(contentful_token)
+    upload.upload_to_contentful(contentful_token)
 
     if delete_file:
         logger.info('Deleting ' + file_path)
         os.remove(file_path)  # delete doc when done
 
     logger.info('Clearing imgs directory')
-    utils.clear_images_directory()
+    file_utils.clear_images_directory()
 
     logger.info('Completed run for ' + file_path)
-
-
-if __name__ == '__main__':
-    main('file2.docx',
-         utils.get_config()['development-contentful-token'],
-         delete_file=False)

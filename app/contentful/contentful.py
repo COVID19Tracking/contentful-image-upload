@@ -2,7 +2,6 @@ import utils
 
 import json
 from contentful_management import Client
-from os.path import join
 import datetime
 import logging
 

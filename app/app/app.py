@@ -9,11 +9,11 @@ from flask import Flask, flash, request, redirect, url_for, render_template
 from werkzeug.utils import secure_filename
 import os
 
-UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER = 'uploads'  # uploaded files live here
 
+# configure the Flask app
 app = Flask(__name__, template_folder='templates')
 app.config['SECRET_KEY'] = os.urandom(42)
-
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 if __name__ == '__main__':
@@ -61,12 +61,18 @@ def uploaded_file_path(filename):
 @app.route('/', methods=['GET'])
 def main():
     if check_has_contentful_cookie(request):
+        # go to the upload page if the user is authenticated
         return upload_file()
     else:
+        # otherwise, authenticate the user
         return contentful_authentication()
 
 
 def contentful_authentication():
+    """
+    A page to begin the Contentful OAuth workflow. Asks the user to
+    authenticate with Contentful.
+    """
     client_id = utils.get_config()['contentful-client-id']
     redirect_uri = utils.get_config()['redirect-uri']
     return render_template('index.html',
@@ -76,11 +82,22 @@ def contentful_authentication():
 
 @app.route('/authenticate', methods=['GET'])
 def contentful_callback():
+    """
+    The URI callback for the Contentful OAuth workflow. Saves the user's
+    token to cookies and then redirects to home.
+    """
     return render_template('authenticate.html')
 
 
 @app.route('/too-many-images', methods=['GET'])
 def too_many_images(attempted_image_count, max_images):
+    """
+    An error page for image uploads that exceed the limit.
+
+    @param attempted_image_count: the number of images the user tried to upload
+    @param max_images: the maximum number of images allowed per upload
+    """
+    # todo set the proper invalid request error code
     return render_template('too_many_images.html',
                            attempted_image_count=attempted_image_count,
                            max_images=max_images)
@@ -88,7 +105,11 @@ def too_many_images(attempted_image_count, max_images):
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
+    """
+    Uploads images to contentful via POST, and accepts image uploads via GET.
+    """
     if request.method == 'POST':
+        # todo perform these checks somewhere else
         # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')

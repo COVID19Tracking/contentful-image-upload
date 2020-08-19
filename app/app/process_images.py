@@ -44,7 +44,8 @@ def optimize_images():
         logging.info('Optimizing image ' + str(index + 1) + ' of ' +
                      str(len(files)))
         Image.open(join(images_directory,
-                        file)).save(join(images_directory, 'optimized_' + file),
+                        file)).save(join(images_directory,
+                                         'optimized_' + file),
                                     optimized=True)
         os.remove(join(images_directory, file))
 

@@ -2,7 +2,7 @@
 
 import utils
 from . import utils as app_utils
-from . import process_images
+from process_images import process_images
 from contentful import utils as contentful_utils
 
 import logging

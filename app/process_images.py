@@ -75,6 +75,8 @@ def check_upload_meets_maximum(docx_path):
 
 
 def main(file_path, contentful_token=None, delete_file=True):
+    extract_images_from_word(file_path)
+
     optimize_images()
 
     upload.upload_to_contentful(contentful_token)

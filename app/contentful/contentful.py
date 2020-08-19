@@ -90,7 +90,7 @@ def upload_images(contentful_token):
     images_directory = utils.get_images_directory()
 
     uploads = []
-    for index, file in enumerate(utils.get_files()):
+    for index, file in enumerate(utils.get_image_files()):
         logging.info('Uploading upload: ' + __get_title(index))
 
         upload = space.uploads().create(join(images_directory,

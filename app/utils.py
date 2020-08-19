@@ -17,7 +17,7 @@ def get_images_directory():
     return get_config()['images-directory']
 
 
-def get_files():
+def get_image_files():
     """
     Gets the files in the images directory
     """

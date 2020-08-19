@@ -39,7 +39,7 @@ def optimize_images():
     This works with PNG and JPEG files.
     """
     # todo bypass with gifs
-    files = utils.get_files()
+    files = utils.get_image_files()
     for index, file in enumerate(files):
         logging.info('Optimizing image ' + str(index + 1) + ' of ' +
                      str(len(files)))

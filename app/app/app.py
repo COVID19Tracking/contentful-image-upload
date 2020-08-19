@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
 import utils
-from . import utils as app_utils
-from process_images import process_images
+import process_images
 from contentful import utils as contentful_utils
+from . import utils as app_utils
 
 import logging
 import multiprocessing

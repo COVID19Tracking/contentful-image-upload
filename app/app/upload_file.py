@@ -2,7 +2,7 @@ import process_images
 from contentful import utils as contentful_utils
 from . import utils
 from . import app
-import utils as file_utils  # todo rename this in filesystem
+import file_utils
 
 import multiprocessing
 import os

@@ -1,10 +1,10 @@
 import logging
 from os.path import join
 
-import utils
+import file_utils
 from . import contentful as cf
 
-
+# todo break into components
 def upload_to_contentful(contentful_token):
     """
     Uploads the images in the images directory to Contentful
@@ -16,10 +16,10 @@ def upload_to_contentful(contentful_token):
 
     environment = cf.__get_contentful_environment(space)
 
-    images_directory = utils.get_images_directory()
+    images_directory = file_utils.get_images_directory()
 
     uploads = []
-    for index, file in enumerate(utils.get_image_files()):
+    for index, file in enumerate(file_utils.get_image_files()):
         logging.info('Uploading upload: ' + cf.__get_title(index))
 
         upload = space.uploads().create(join(images_directory,

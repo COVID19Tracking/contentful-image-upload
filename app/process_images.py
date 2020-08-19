@@ -1,5 +1,5 @@
 from contentful import upload
-import utils
+import file_utils
 
 from os.path import join
 import os
@@ -10,7 +10,7 @@ import logging
 
 # todo optimize and upload images in parallel
 
-images_directory = utils.get_images_directory()
+images_directory = file_utils.get_images_directory()
 
 IMAGE_EXTENSIONS = (".png", ".jpeg", ".jpg")  # todo add gifs
 
@@ -39,7 +39,7 @@ def optimize_images():
     This works with PNG and JPEG files.
     """
     # todo bypass with gifs
-    files = utils.get_image_files()
+    files = file_utils.get_image_files()
     for index, file in enumerate(files):
         logging.info('Optimizing image ' + str(index + 1) + ' of ' +
                      str(len(files)))
@@ -86,6 +86,6 @@ def main(file_path, contentful_token=None, delete_file=True):
         os.remove(file_path)  # delete doc when done
 
     logger.info('Clearing imgs directory')
-    utils.clear_images_directory()
+    file_utils.clear_images_directory()
 
     logger.info('Completed run for ' + file_path)

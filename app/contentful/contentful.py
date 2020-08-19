@@ -1,4 +1,4 @@
-import utils
+import file_utils
 
 import json
 from contentful_management import Client
@@ -62,11 +62,11 @@ def __get_contentful_client(contentful_token):
 
 
 def __get_contentful_space_id():
-    return utils.get_config()["contentful-space-id"]
+    return file_utils.get_config()["contentful-space-id"]
 
 
 def __get_contentful_environment(space):
-    environment_name = utils.get_config()["contentful-environment"]
+    environment_name = file_utils.get_config()["contentful-environment"]
     return space.environments().find(environment_name)
 
 

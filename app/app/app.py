@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import utils
+import file_utils
 from contentful import utils as contentful_utils
 from . import upload_file
 
@@ -33,8 +33,8 @@ def contentful_authentication():
     A page to begin the Contentful OAuth workflow. Asks the user to
     authenticate with Contentful.
     """
-    client_id = utils.get_config()['contentful-client-id']
-    redirect_uri = utils.get_config()['redirect-uri']
+    client_id = file_utils.get_config()['contentful-client-id']
+    redirect_uri = file_utils.get_config()['redirect-uri']
     return render_template('index.html',
                            client_id=client_id,
                            redirect_uri=redirect_uri)

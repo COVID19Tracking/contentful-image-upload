@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from . import utils
+from . import app_utils  # todo rename this
 from . import process_images
 from contentful import utils as contentful_utils
 
@@ -19,24 +20,6 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=int("8000"), debug=False)
-
-
-def allowed_file(filename):
-    """
-    Checks if a file ends with .docx
-
-    @param filename: the name of the file
-    @return: True if the file ends with docx, False otherwise
-    """
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() == 'docx'
-
-
-def uploaded_file_path(filename):
-    """
-    Returns the path of an uploaded file
-    """
-    return os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
 
 @app.route('/', methods=['GET'])
@@ -101,14 +84,17 @@ def upload_file():
         if file.filename == '':
             flash('No selected file')
             return redirect(request.url)
-        if file and allowed_file(file.filename):
+        if file and app_utils.allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(uploaded_file_path(filename))
+            file.save(
+                app_utils.get_uploaded_file_path(filename,
+                                                 app.config['UPLOAD_FOLDER']))
             return redirect(url_for('upload_file', filename=filename))
 
     filename = request.args.get('filename')
     if request.method == 'GET' and filename:
-        file_path = uploaded_file_path(filename)
+        file_path = app_utils.get_uploaded_file_path(
+            filename, app.config['UPLOAD_FOLDER'])
         file_exists = os.path.isfile(file_path)
         meets_maximum, attempted_image_count, max_image_count = process_images.check_upload_meets_maximum(
             file_path)

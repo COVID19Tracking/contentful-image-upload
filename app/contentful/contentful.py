@@ -1,4 +1,4 @@
-from . import utils
+from app import utils
 
 import json
 from contentful_management import Client

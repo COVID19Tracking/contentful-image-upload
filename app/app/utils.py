@@ -53,19 +53,3 @@ def clear_images_directory():
     Clears the images directory, makes sure the directory exists
     """
     clear_directory(get_images_directory())
-
-
-def get_file_path():
-    """
-    Gets the file path from the CLI arguments
-    """
-    logging.info('Getting file path')
-    try:
-        file_path = sys.argv[1]
-    except IndexError as e:
-        print('You need to pass a docx file as an argument...quitting.')
-        quit(1)
-    if not isfile(file_path):
-        print('"' + file_path + "\" doesn't seem to exist...quitting")
-        quit(1)
-    return file_path

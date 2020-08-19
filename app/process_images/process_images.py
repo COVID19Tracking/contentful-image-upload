@@ -1,4 +1,4 @@
-from contentful import contentful
+from contentful import upload
 import utils
 
 from os.path import join
@@ -77,7 +77,7 @@ def check_upload_meets_maximum(docx_path):
 def main(file_path, contentful_token=None, delete_file=True):
     optimize_images()
 
-    contentful.upload_images(contentful_token)
+    upload.upload_to_contentful(contentful_token)
 
     if delete_file:
         logger.info('Deleting ' + file_path)

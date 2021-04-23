@@ -1,4 +1,4 @@
-Pillow==6.2.2
+Pillow==8.1.1
 contentful_management
 Flask==1.0.3
 uWSGI==2.0.17.1
